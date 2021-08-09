@@ -21,12 +21,12 @@ public class DriveTrain extends SubsystemBase {
 
   public DriveTrain() {
 
-    this._talonR = new TalonSRX(0);
-    this._talonL = new TalonSRX(1);
-    this._victorRF = new VictorSPX(2);
-    this._victorRB = new VictorSPX(3);
-    this._victorLF = new VictorSPX(4);
-    this._victorLB = new VictorSPX(5);
+    this._talonR = new TalonSRX(Constants.DriveTrain.TalonL.TALONL_ID);
+    this._talonL = new TalonSRX(Constants.DriveTrain.TalonR.TALONR_ID);
+    this._victorRF = new VictorSPX(Constants.DriveTrain.VictorRF.VICTORRF_ID);
+    this._victorRB = new VictorSPX(Constants.DriveTrain.VictorRB.VICTORRB_ID);
+    this._victorLF = new VictorSPX(Constants.DriveTrain.VictorLF.VICTORLF_ID);
+    this._victorLB = new VictorSPX(Constants.DriveTrain.VictorLB.VICTORLB_ID);
 
     this._victorRF.follow(_talonR);
     this._victorRB.follow(_talonR);
@@ -47,45 +47,22 @@ public class DriveTrain extends SubsystemBase {
     this._talonL.set(ControlMode.Position, distanceL);
   }
 
-
-  public void setRightVelocity(double velocity){
-    this._talonR.set(ControlMode.Velocity, velocity);
+  public void setRightPercent(double percentage){
+    this._talonR.set(ControlMode.PercentOutput, percentage);
   }
 
-  public void setLeftVelocity(double velocity){
-    this._talonL.set(ControlMode.Velocity, velocity);
+  public void setLeftPercent(double percentage){
+    this._talonL.set(ControlMode.PercentOutput, percentage);
   }
 
-  public void setBothVelocity(double velocityR, double velocityL){
-    this._talonR.set(ControlMode.Velocity, velocityR);
-    this._talonL.set(ControlMode.Velocity, velocityL);
+  public void setBothPercent(double percentageL, double percentageR){
+    setRightPercent(percentageR);
+    setLeftPercent(percentageL);
   }
 
-  public void setVelocity(double velocity){
-    this._talonL.set(ControlMode.Velocity, velocity);
-    this._talonR.set(ControlMode.Velocity, velocity);
-  }
-
-  public void setRightPercentage(double precent){
-    this._talonR.set(ControlMode.PercentOutput, precent);
-  }
-
-  public void setLeftPercentage(double precent){
-    this._talonL.set(ControlMode.PercentOutput, precent);
-  }
-
-  public void setBothPercentage(double precentR, double precentL){
-    this._talonR.set(ControlMode.PercentOutput, precentR);
-    this._talonL.set(ControlMode.PercentOutput, precentL);
-  }
-
-  public void setPercentage(double precent){
-    this._talonR.set(ControlMode.PercentOutput, precent);
-    this._talonL.set(ControlMode.PercentOutput, precent);
-  }
-
-  public enum gearState {
-    HIGH, LOW, OFF;
+  public void setpercent(double percentage){
+    setRightPercent(percentage);
+    setLeftPercent(percentage);
   }
 
   @Override
