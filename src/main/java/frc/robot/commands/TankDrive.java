@@ -3,33 +3,39 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
+
 import frc.robot.Robot;
+
+import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class TankDrive extends CommandBase {
+  DoubleSupplier leftSupplier, rightSupplier;
 
-  public TankDrive() {
+  public TankDrive(DoubleSupplier leftSupplier, DoubleSupplier rightSupplier) {
+
     addRequirements(Robot.driveTrain);
+
+    this.leftSupplier = leftSupplier;
+    this.rightSupplier = rightSupplier;
   }
 
-  private void addRequirements(frc.robot.Constants.DriveTrain driveTrain) {
-}
-
-// Called when the command is initially scheduled.
+  // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      Robot.driveTrain.setBothPrecent(Robot.joysticks.getLeftY(), Robot.joysticks.getRightY());
+    Robot.driveTrain.setPercent(leftSupplier.getAsDouble(), rightSupplier.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-      Robot.driveTrain.setPrecent(0.0);
+    Robot.driveTrain.setPercent(0.0);
   }
 
   // Returns true when the command should end.
