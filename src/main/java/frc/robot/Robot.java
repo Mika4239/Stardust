@@ -22,17 +22,14 @@ import frc.robot.humanIO.Joysticks;
  */
 public class Robot extends TimedRobot {
 
-  public static DriveTrain driveTrain;
-  public static TankDrive tankDrive;
+  private Command m_autonomousCommand;
+
+  private RobotContainer m_robotContainer;
 
   public static Joysticks joysticks;
 
   DoubleSupplier leftSupplier = joysticks::getLeftY;
   DoubleSupplier rightSupplier = joysticks::getRightY;
-
-  private Command m_autonomousCommand;
-
-  private RobotContainer m_robotContainer;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -44,10 +41,7 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
-    Robot.driveTrain = new DriveTrain();
     Robot.joysticks = new Joysticks();
-    Robot.tankDrive = new TankDrive(leftSupplier, rightSupplier);
 
   }
 
@@ -114,6 +108,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    m_robotContainer.getTankDriveCommand(leftSupplier, rightSupplier).schedule();
   }
 
   @Override

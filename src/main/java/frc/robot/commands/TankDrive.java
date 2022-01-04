@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
+import frc.robot.subsystems.DriveTrain;
 
 import java.util.function.DoubleSupplier;
 
@@ -12,10 +12,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class TankDrive extends CommandBase {
   DoubleSupplier leftSupplier, rightSupplier;
+  private final DriveTrain m_driveTrain;
 
-  public TankDrive(DoubleSupplier leftSupplier, DoubleSupplier rightSupplier) {
+  public TankDrive(DriveTrain m_driveTrain2, DoubleSupplier leftSupplier, DoubleSupplier rightSupplier) {
 
-    addRequirements(Robot.driveTrain);
+    this.m_driveTrain = m_driveTrain2;
+    addRequirements(m_driveTrain2);
 
     this.leftSupplier = leftSupplier;
     this.rightSupplier = rightSupplier;
@@ -29,13 +31,13 @@ public class TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.driveTrain.setPercent(leftSupplier.getAsDouble(), rightSupplier.getAsDouble());
+    m_driveTrain.setPercent(leftSupplier.getAsDouble(), rightSupplier.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.driveTrain.setPercent(0.0);
+    m_driveTrain.setPercent(0.0);
   }
 
   // Returns true when the command should end.
