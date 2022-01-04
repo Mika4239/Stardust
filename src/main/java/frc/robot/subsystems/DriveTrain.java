@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
@@ -32,10 +33,10 @@ public class DriveTrain extends SubsystemBase {
 
     this._talonL.setInverted(Constants.DriveTrain.TalonL.inverted);
     this._talonR.setInverted(Constants.DriveTrain.TalonR.inverted);
-    this._victorRB.setInverted(Constants.DriveTrain.VictorRB.inverted);
-    this._victorRF.setInverted(Constants.DriveTrain.VictorRF.inverted);
-    this._victorLF.setInverted(Constants.DriveTrain.VictorLF.inverted);
-    this._victorLB.setInverted(Constants.DriveTrain.VictorLB.inverted);
+    this._victorRB.setInverted(InvertType.FollowMaster);
+    this._victorRF.setInverted(InvertType.FollowMaster);
+    this._victorLF.setInverted(InvertType.FollowMaster);
+    this._victorLB.setInverted(InvertType.FollowMaster);
 
   }
 
